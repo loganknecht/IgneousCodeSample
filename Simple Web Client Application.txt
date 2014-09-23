@@ -1,0 +1,30 @@
+Simple Web Client Application
+
+The goal is to build a single page web application that allows a user to view time series data. The user should be able to pick from a list of several available time series. The time series should represent system performance metrics such as CPU usage, disk capacity, memory usage, network traffic, etc  from an imaginary computer system. The data for these series can be generated randomly when the user views each chart but it must appear to be somewhat realistic. For example, a graph showing disk usage should probably look like a smooth line that mostly increases over time. New data can be generated each time a time series is plotted.
+
+The user must be able to:
+
+1. Choose one or more time series to view. 
+
+2. View separate charts for each selected time series. If multiple time series are selected, they should appear each as separate charts on the screen versus as separate lines on one chart. If a user hasn’t selected to view a time series, a chart for that series must not
+appear. 
+
+3. Not view any series at all. 
+
+4. Choose to view either 1 hour or 1 week of time series data for the currently displayed time series.
+
+Ground Rules:
+1. The goal is to have functional code that can be the basis of a conversation around design
+trade‐offs during the face‐to‐face interview process. 
+
+2. Expect to take at least 2‐3 hours, but this is not a timed assignment.  The most important goal is making a functional piece of code you would want to be reviewed by a colleague. 
+
+3. Include all source code, test code, and a README describing how to build and run the solution. 
+
+4. Any JavaScript charting packages, libraries, modules or frameworks can be used but please include instructions on how to setup the environment to build and run the code. We think of languages as tools and good engineers can adapt to the right tool for the job. Would be interesting if you used a set of tools you have not been recently using. 
+
+5. The design should be responsive and look good and be usable on phone, tablet and desktop screens. 
+
+6. There are no requirements for visual design, but all UI elements (including any fonts, colors, logos, header, footer, menus, etc) must look and act like they fit together to form a cohesive design. 
+
+7. When complete, please email us a .zip of your project folder. Please include a README with any relevant info.

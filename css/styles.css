@@ -1,0 +1,25 @@
+.navbar-nav li div {
+    line-height: 37px;
+}
+
+.page-header {
+	margin-bottom: 0px;
+	margin-left: 20px;
+}
+
+.performance-graph-container {
+	padding: 0px 0px 0px 0px;
+}
+
+.performance-graph-container .graph {
+	width:100%;
+	height:300px;
+}
+.performance-graph-container .text {
+	text-align: center;
+}
+
+.performance-item {
+	display: inline;
+	padding: 0px 10px 0px 10px;
+}

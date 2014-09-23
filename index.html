@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Igneous Example</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="page-header">
+           <h1>Logan Knecht <small><center>Igneous Example</center></small></h1>
+        </div>
+
+        <div class="performance-graph-container">
+            <div class="row">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <div>
+                        <div class="performance-item">
+                            CPU Usage
+                            <input id="cpu-usage-button" type="checkbox" name="performance-option">
+                        </div>
+                        <div class="performance-item">
+                            Disk Capacity 
+                            <input type="checkbox" name="performance-option">
+                        </div>
+                        <div class="performance-item">
+                            Memory Usage
+                            <input type="checkbox" name="performance-option">
+                        </div>
+                        <div class="performance-item">
+                            Network Traffic
+                            <input type="checkbox" name="performance-option">
+                        </div>
+                    </div>
+                  </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-1">
+                    <div class="performance-graph-container">
+                        <div id="cpu-usage-graph" class="graph">
+                        </div>
+                        <div class="text">
+                           CPU Usage
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Libraries -->
+        <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+        <script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
+
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <!-- Custom -->
+        <script type="text/javascript" src="js/fake_logic.js"></script>
+    </body>
+</html>

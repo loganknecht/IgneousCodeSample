@@ -43,7 +43,7 @@ Overall - this was not a particulary difficult assignment. When I started the pr
 
 Following that there was also another requirement, one that wanted a display of chart data. Now, I personally haven't used any charting libraries outside of matplotlib in Python, so I did some minor research, and then chose the Flot javascript library because that's what StackOverflow is supposedly using. There wasn't a performance thought, or visual aesthetic basis for any of that. I'll discuss later how I feel like this bit me in the butt.
 
-With the libraries selected I decided to move forward with creation of a general feel for the website. This meant creating a structure for how to display information, configuring a layout that would represent the location of the charts I would be hooking up, etc, etc. This is where bootstrap came in. With minimal effort I had configured a template of the looke and feel I was going for.
+With the libraries selected I decided to move forward with creation of a general feel for the website. This meant creating a structure for how to display information, configuring a layout that would represent the location of the charts I would be hooking up, etc, etc. This is where bootstrap came in. With minimal effort I had configured a template of the look and feel I was going for.
 
 Once the basic look was accomplished I started to configure a basic chart created by Flot. This was such a pain in my butt! Flot has some reasonable documentation, but there were so many times I caught myself creating javascript objects with incorrect data that it became frustrating. I'll cover more on this later.
 

@@ -5,6 +5,7 @@
 This project was created in order to provide a personal code sample for Igneous Systems. 
 
 ##Requirements:
+The goal is to build a single page web application that allows a user to view time series data. The user should be able to pick from a list of several available time series. The time series should represent system performance metrics such as CPU usage, disk capacity, memory usage, network traffic, etc  from an imaginary computer system. The data for these series can be generated randomly when the user views each chart but it must appear to be somewhat realistic. For example, a graph showing disk usage should probably look like a smooth line that mostly increases over time. New data can be generated each time a time series is plotted.
 
 1. Choose one or more time series to view. 
 

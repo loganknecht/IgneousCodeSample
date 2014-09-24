@@ -9,76 +9,52 @@
     </head>
     <body>
         <div class="page-header">
-           <h1>Logan Knecht <small><center>Igneous Example</center></small></h1>
+           <h1>Logan Knecht <small><div class="rounded-rect"><center>Igneous Example<br/><small style="color: #000000;">Select a Button to Display a Chart</small></center></div></small></h1>
         </div>
 
+        <div class="nav nav-list bs-docs-sidenav affix">
+            <!-- <ul class="nav nav-list bs-docs-sidenav affix"> -->
+            <div class="btn-group btn-group-vertical">
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('cpu-usage-container');">CPU Usage</button>
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('disk-capacity-container');">Disk Capacity</button>
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('memory-usage-container');">Memory Usage</button>
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('network-traffic-container');">Network Traffic</button>
+                <button id="interval" type="button" class="btn btn-primary" onclick="ToggleDataInterval(this);">1 Hour</button>
+            </div>
+            <!-- </ul> -->
+        </div>
         <div class="performance-graph-container">
             <div class="row">
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <div>
-                        <div class="performance-item">
-                            CPU Usage
-                            <input id="cpu-usage-button" type="checkbox" name="performance-option">
-                        </div>
-                        <div class="performance-item">
-                            Disk Capacity 
-                            <input type="checkbox" name="performance-option">
-                        </div>
-                        <div class="performance-item">
-                            Memory Usage
-                            <input type="checkbox" name="performance-option">
-                        </div>
-                        <div class="performance-item">
-                            Network Traffic
-                            <input type="checkbox" name="performance-option">
-                        </div>
-                    </div>
-                  </span>
-                </div>
-            </div>
-
-            <div class="row">
                 <!-- cpu usage graph -->
-                <div class="col-md-4 col-md-offset-1">
-                    <div class="performance-graph-container">
-                        <div id="cpu-usage-graph" class="graph">
-                        </div>
-                        <div class="text">
-                           CPU Usage (in percent)
-                        </div>
+                <div id="cpu-usage-container" class="col-md-4 col-md-offset-1">
+                    <div id="cpu-usage-graph" class="graph">
+                    </div>
+                    <div class="text">
+                       CPU Usage (in percent)
                     </div>
                 </div>
                 <!-- disk capacity -->
-                <div class="col-md-4 col-md-offset-1">
-                    <div class="performance-graph-container">
-                        <div id="disk-capacity-graph" class="graph">
-                        </div>
-                        <div class="text">
-                           Disk Capacity (in gigabytes)
-                        </div>
+                <div id="disk-capacity-container" class="col-md-4 col-md-offset-1">
+                    <div id="disk-capacity-graph" class="graph">
+                    </div>
+                    <div class="text">
+                       Disk Capacity (in gigabytes)
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <!-- memory usage -->
-                <div class="col-md-4 col-md-offset-1">
-                    <div class="performance-graph-container">
-                        <div id="memory-usage-graph" class="graph">
-                        </div>
-                        <div class="text">
-                           Memory Usage (in gigabytes)
-                        </div>
+                <div id="memory-usage-container" class="col-md-4 col-md-offset-1">
+                    <div id="memory-usage-graph" class="graph">
+                    </div>
+                    <div class="text">
+                       Memory Usage (in gigabytes)
                     </div>
                 </div>
                 <!-- Network Traffic -->
-                <div class="col-md-4 col-md-offset-1">
-                    <div class="performance-graph-container">
-                        <div id="network-traffic-graph" class="graph">
-                        </div>
-                        <div class="text">
-                           Network Traffic (in kilobytes a second)
-                        </div>
+                <div id="network-traffic-container" class="col-md-4 col-md-offset-1">
+                    <div id="network-traffic-graph" class="graph">
+                    </div>
+                    <div class="text">
+                       Network Traffic (in kilobytes a second)
                     </div>
                 </div>
             </div>

@@ -1,3 +1,49 @@
+function ConfigureInitialDisplay() {
+	$('#cpu-usage-container').hide();
+    $('#disk-capacity-container').hide();
+    $('#memory-usage-container').hide();
+    $('#network-traffic-container').hide();
+}
+
+function ToggleElement(elementId) {
+	$('#' + elementId).toggle(500, function() {
+	// Animation complete.
+	});
+}
+
+function ToggleDataInterval(domButtonElement) {
+	a = domButtonElement;
+	if(a.innerHTML == "1 Hour") {
+		a.innerHTML = "1 Week";
+	}
+	else if(a.innerHTML == "1 Week") {
+		a.innerHTML = "1 Month";
+	}
+	else if(a.innerHTML == "1 Month") {
+		a.innerHTML = "1 Hour";
+	}
+
+	for(var i = 0; i < cpuUsageChart.dataPoints.length; i++) {
+		cpuUsageChart.dataPoints[i] = 50;
+	}
+	cpuUsageChart.graphValueToAddToChart = 50;
+
+	for(var i = 0; i < diskCapacityChart.dataPoints.length; i++) {
+		diskCapacityChart.dataPoints[i] = 20;
+	}
+	diskCapacityChart.graphValueToAddToChart = 20;
+
+	for(var i = 0; i < memoryUsageChart.dataPoints.length; i++) {
+		memoryUsageChart.dataPoints[i] = 5.5;
+	}
+	memoryUsageChart.graphValueToAddToChart = 5.5;
+
+	for(var i = 0; i < networkTrafficChart.dataPoints.length; i++) {
+		networkTrafficChart.dataPoints[i] = 0;
+	}
+	networkTrafficChart.graphValueToAddToChart = 0;
+}
+
 // Pass in simple javascript object for quick checking
 function Chart(options) {
 	this.ValidateOptions(options);
@@ -17,9 +63,6 @@ function Chart(options) {
 
 	// Configures how the graph will look
 	this.graphOptions = this.GenerateGraphOptions(this.numberOfDataPoints);
-
-	this.ConfigureXAxisLabel(this.jqueryChartObject);
-	this.ConfigureYAxisLabel(this.jqueryChartObject);
 };
 
 Chart.prototype = {
@@ -109,10 +152,6 @@ Chart.prototype = {
 		setInterval((function() {
 			this.PlotGraph();
 		}).bind(this), 250);
-	},
-	ConfigureXAxisLabel : function(jqueryChartObject) {
-	},
-	ConfigureYAxisLabel : function(jqueryChartObject) {
 	}
 };
 
@@ -386,6 +425,7 @@ NetworkTrafficChart.prototype.GenerateGraphOptions = function(numberOfDataPoints
 			lines: {
 				fill: true,
 				// fillColor: "rgba(255, 0, 0, 1)",
+				// fillColor: 'rgba(255, 255, 0 1)',
 				show: true
 			}
 		},
@@ -399,6 +439,9 @@ NetworkTrafficChart.prototype.GenerateGraphOptions = function(numberOfDataPoints
 		}
 	};
 };
+
+
+ConfigureInitialDisplay();
 
 var cpuUsageChart = new CPUUsageChart({
 	jqueryChartObject : $("#cpu-usage-graph")

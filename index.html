@@ -9,9 +9,24 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
+<<<<<<< HEAD
         <div id="top-container">
             <div class="page-header">
                <h1>Logan Knecht <small><div class="rounded-rect"><center>Igneous Example<br/><small style="color: #000000;">Select a Button to Display a Chart</small></center></div></small></h1>
+=======
+        <div class="page-header">
+           <h1>Logan Knecht <small><div class="rounded-rect"><center>Igneous Example<br/><small style="color: #000000;">Select a Button to Display a Chart</small></center></div></small></h1>
+        </div>
+
+        <div id="nav-container" class="nav nav-list bs-docs-sidenav affix">
+            <!-- <ul class="nav nav-list bs-docs-sidenav affix"> -->
+            <div class="btn-group btn-group-vertical">
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('cpu-usage-container');">CPU Usage</button>
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('disk-capacity-container');">Disk Capacity</button>
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('memory-usage-container');">Memory Usage</button>
+                <button type="button" class="btn btn-primary" data-toggle="button" onclick="ToggleElement('network-traffic-container');">Network Traffic</button>
+                <button id="interval" type="button" class="btn btn-primary" onclick="ToggleDataInterval(this);">1 Hour</button>
+>>>>>>> 957ca2d6c509bc64b15991288a4546938fd6a8ca
             </div>
 
             <div id="body">

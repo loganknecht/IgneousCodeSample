@@ -3,6 +3,25 @@ body {
 	overflow-x: hidden;
 }
 
+a:link {
+    color: #428BCA;
+}
+
+/* visited link */
+a:visited {
+    color: #428BCA;
+}
+
+/* mouse over link */
+a:hover {
+    color: #428BCA;
+}
+
+/* selected link */
+a:active {
+    color: #428BCA;
+}
+
 .page-header h1 {
 	color: #FFFFFF;
 }
@@ -34,6 +53,17 @@ button#interval {
 	background-color: #DBA540;
 }
 
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;
+   background:#666666;
+}
+
+#nav-container {
+	z-index: 30;
+}
 .performance-graph-container {
 	padding: 0px 0px 0px 0px;
 }

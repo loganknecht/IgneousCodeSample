@@ -1,7 +1,3 @@
-// Used instead of set interval because this is optimzed for animations, however it's hard to say if flot is optimized 
-// for this sort of thing, so it may just be better to use set interval
-window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                          window.webkitRequestAnimationFrame || window.oRequestAnimationFrame;
 // Pass in simple javascript object for quick checking
 function Chart(options) {
 	this.ValidateOptions(options);
@@ -21,6 +17,9 @@ function Chart(options) {
 
 	// Configures how the graph will look
 	this.graphOptions = this.GenerateGraphOptions(this.numberOfDataPoints);
+
+	this.ConfigureXAxisLabel(this.jqueryChartObject);
+	this.ConfigureYAxisLabel(this.jqueryChartObject);
 };
 
 Chart.prototype = {
@@ -105,27 +104,312 @@ Chart.prototype = {
 	PlotGraph : function() {
 		this.dataPoints = this.UpdateDataPoints(this.dataPoints);
 		$.plot(this.jqueryChartObject, this.GetData(this.dataPoints), this.graphOptions);
-
-		this.TriggerTracking();
 	},
 	TriggerTracking : function() {
-		requestAnimationFrame((function() {
+		setInterval((function() {
 			this.PlotGraph();
-		}).bind(this));
+		}).bind(this), 250);
+	},
+	ConfigureXAxisLabel : function(jqueryChartObject) {
+	},
+	ConfigureYAxisLabel : function(jqueryChartObject) {
 	}
 };
 
+function CPUUsageChart(options) {
+	Chart.call(this, options);
 
-var cpuUsageChart = new Chart({
+	this.probabilityForChange = 50;
+	this.graphValueToAddToChart = 50;
+}
+
+CPUUsageChart.prototype = Object.create(Chart.prototype);
+CPUUsageChart.prototype.constructor = CPUUsageChart;
+CPUUsageChart.prototype.UpdateDataPoints = function(dataPoints) {
+	// probability for change succeeded
+	if(Math.floor(Math.random()*100) < this.probabilityForChange) {
+		this.graphValueToAddToChart = Math.floor(Math.random() * 100);
+	}
+
+	dataPoints = dataPoints.slice(1);
+	dataPoints.push(this.graphValueToAddToChart);
+
+	return dataPoints;
+};
+CPUUsageChart.prototype.GenerateGraphOptions = function(numberOfDataPoints) {
+	return {
+		grid: {
+			borderWidth: 1,
+			minBorderMargin: 20,
+			labelMargin: 10,
+			backgroundColor: {
+				colors: ["#fff", "#e4f4f4"]
+			},
+			margin: {
+				top: 8,
+				bottom: 20,
+				left: 20
+			}
+		},
+		legend: {
+			show: true
+		},
+		series: {
+			lines: {
+				fill: true,
+				// fillColor: "rgba(255, 0, 0, 1)",
+				show: true
+			}
+		},
+		xaxis: {
+			show: false,
+			min: 0,
+			max: numberOfDataPoints - 1
+		},
+		yaxis: {
+			min: 0,
+			max: 100
+		}
+	};
+};
+function DiskCapacityChart(options) {
+	Chart.call(this, options);
+
+	this.iterationsUntilIncrementMin = 100;
+	this.iterationsUntilIncrementMax = 300;
+	this.chartMax = 500;
+	this.graphValueToAddToChart = 20;
+}
+DiskCapacityChart.prototype = Object.create(Chart.prototype);
+DiskCapacityChart.prototype.constructor = DiskCapacityChart;
+DiskCapacityChart.prototype.UpdateDataPoints = function(dataPoints) {
+	// probability for change succeeded
+	this.iterationsUntilIncrement--;
+	if(this.iterationsUntilIncrement <0) {
+		this.iterationsUntilIncrement = (this.iterationsUntilIncrementMin + Math.floor(Math.random()*(this.iterationsUntilIncrementMax-this.iterationsUntilIncrementMin)));
+		this.graphValueToAddToChart = Math.floor(Math.random() * 100);
+	}
+
+	dataPoints = dataPoints.slice(1);
+	this.graphValueToAddToChart += 0.5;
+	if(this.graphValueToAddToChart > this.chartMax) {
+		this.graphValueToAddToChart = this.chartMax;
+	}
+	dataPoints.push(this.graphValueToAddToChart);
+
+	return dataPoints;
+};
+DiskCapacityChart.prototype.GenerateGraphOptions = function(numberOfDataPoints) {
+	return {
+		grid: {
+			borderWidth: 1,
+			minBorderMargin: 20,
+			labelMargin: 10,
+			backgroundColor: {
+				colors: ["#fff", "#e4f4f4"]
+			},
+			margin: {
+				top: 8,
+				bottom: 20,
+				left: 20
+			}
+		},
+		legend: {
+			show: true
+		},
+		series: {
+			lines: {
+				fill: true,
+				// fillColor: "rgba(255, 0, 0, 1)",
+				show: true
+			}
+		},
+		xaxis: {
+			show: false,
+			min: 0,
+			max: numberOfDataPoints - 1
+		},
+		yaxis: {
+			min: 0,
+			max: 500
+		}
+	};
+};
+function MemoryUsageChart(options) {
+	Chart.call(this, options);
+
+	this.probabilityOfMajorMemoryRelease = 2;
+	this.probabilityOfMajorMemorySpike = 2;
+	this.graphValueToAddToChart = 5.5;
+}
+MemoryUsageChart.prototype = Object.create(Chart.prototype);
+MemoryUsageChart.prototype.constructor = MemoryUsageChart;
+MemoryUsageChart.prototype.UpdateDataPoints = function(dataPoints) {
+	// probability for change succeeded
+	if(Math.floor(Math.random()*100) < this.probabilityOfMajorMemoryRelease) {
+		this.graphValueToAddToChart -= Math.floor(Math.random() * 2);
+		}
+	if(Math.floor(Math.random()*100) < this.probabilityOfMajorMemorySpike) {
+		this.graphValueToAddToChart -= Math.floor(Math.random() * 2);
+	}
+	else {
+		var shouldIncrease = Math.floor(Math.random() * 2) == 1 ? true : false;
+		var modifyingValue = Math.random() * .25;
+		if(shouldIncrease) {
+			this.graphValueToAddToChart += modifyingValue;
+		}
+		else {
+			this.graphValueToAddToChart -= modifyingValue;
+		}
+
+		if(this.graphValueToAddToChart < 0) {
+			this.graphValueToAddToChart = 0;
+		}
+		if(this.graphValueToAddToChart > 8) {
+			this.graphValueToAddToChart = 8;
+		}
+	}
+
+	dataPoints = dataPoints.slice(1);
+	dataPoints.push(this.graphValueToAddToChart);
+
+	return dataPoints;
+};
+MemoryUsageChart.prototype.GenerateGraphOptions = function(numberOfDataPoints) {
+	return {
+		grid: {
+			borderWidth: 1,
+			minBorderMargin: 20,
+			labelMargin: 10,
+			backgroundColor: {
+				colors: ["#fff", "#e4f4f4"]
+			},
+			margin: {
+				top: 8,
+				bottom: 20,
+				left: 20
+			}
+		},
+		legend: {
+			show: true
+		},
+		series: {
+			lines: {
+				fill: true,
+				// fillColor: "rgba(255, 0, 0, 1)",
+				show: true
+			}
+		},
+		xaxis: {
+			show: false,
+			min: 0,
+			max: numberOfDataPoints - 1
+		},
+		yaxis: {
+			min: 0,
+			max: 8
+		}
+	};
+};
+function NetworkTrafficChart(options) {
+	Chart.call(this, options);
+
+	this.probabilityOfNetworkTrafficOccurring = 100;
+	this.networkSpikeIsOccurring = false;
+	this.networkSpikeIsAscending = false;
+	this.networkSpikeIsDescending = false;
+	this.networkSpikeStepSize = 3;
+	this.networkSpikeStepSizeMin = 10;
+	this.networkSpikeStepSizeMax = 20;
+	this.amountToSpikeBy = 20;
+	this.graphValueToAddToChart = 0;
+}
+NetworkTrafficChart.prototype = Object.create(Chart.prototype);
+NetworkTrafficChart.prototype.constructor = NetworkTrafficChart;
+NetworkTrafficChart.prototype.UpdateDataPoints = function(dataPoints) {
+	if(!this.networkSpikeIsOccurring) {
+		if(Math.floor(Math.random()*100) < this.probabilityOfNetworkTrafficOccurring) {
+			this.networkSpikeIsOccurring = true;
+			this.networkSpikeStepSize = this.networkSpikeStepSizeMin + (Math.random() * (this.networkSpikeStepSizeMax - this.networkSpikeStepSizeMin));
+			this.amountToSpikeBy = 20 + (Math.random() * 140);
+			if(this.amountToSpikeBy > 160) {
+				this.amountToSpikeBy = 160;
+			}
+			this.networkSpikeIsAscending = true;
+			this.networkSpikeIsDescending = false;
+		}
+	}
+	// perform network spike
+	else {
+		if(this.networkSpikeIsAscending) {
+			this.graphValueToAddToChart += this.networkSpikeStepSize * Math.random();
+		}
+		else if(this.networkSpikeIsDescending) {
+			this.graphValueToAddToChart -= this.networkSpikeStepSize * Math.random();
+		} 
+
+		if(this.graphValueToAddToChart > this.amountToSpikeBy) {
+			this.networkSpikeIsAscending = false;
+			this.networkSpikeIsDescending = true;
+		}
+
+		if(this.graphValueToAddToChart < 0) {
+			this.graphValueToAddToChart = 0;
+			this.networkSpikeIsOccurring = false;
+		}
+	}
+
+	dataPoints = dataPoints.slice(1);
+	dataPoints.push(this.graphValueToAddToChart);
+
+	return dataPoints;
+};
+NetworkTrafficChart.prototype.GenerateGraphOptions = function(numberOfDataPoints) {
+	return {
+		grid: {
+			borderWidth: 1,
+			minBorderMargin: 20,
+			labelMargin: 10,
+			backgroundColor: {
+				colors: ["#fff", "#e4f4f4"]
+			},
+			margin: {
+				top: 8,
+				bottom: 20,
+				left: 20
+			}
+		},
+		legend: {
+			show: true
+		},
+		series: {
+			lines: {
+				fill: true,
+				// fillColor: "rgba(255, 0, 0, 1)",
+				show: true
+			}
+		},
+		xaxis: {
+			min: 0,
+			max: numberOfDataPoints - 1
+		},
+		yaxis: {
+			min: 0,
+			max: 160
+		}
+	};
+};
+
+var cpuUsageChart = new CPUUsageChart({
 	jqueryChartObject : $("#cpu-usage-graph")
 });
-var diskCapacityChart = new Chart({
+var diskCapacityChart = new DiskCapacityChart({
 	jqueryChartObject : $("#disk-capacity-graph")
 });
-var memoryUsageChart = new Chart({
+var memoryUsageChart = new MemoryUsageChart({
 	jqueryChartObject : $("#memory-usage-graph")
 });
-var networkTrafficChart = new Chart({
+var networkTrafficChart = new NetworkTrafficChart({
 	jqueryChartObject : $("#network-traffic-graph")
 });
 
